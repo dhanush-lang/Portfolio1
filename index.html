@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      line-height: 1.5;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      background: #121212;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+      box-sizing: border-box;
+    }
+
+    .hero-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      max-width: 1200px;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+
+    .text-content {
+      flex: 1 1 300px;
+      min-width: 280px;
+    }
+
+    .text-content h1 {
+      font-size: 3rem;
+      margin: 0 0 15px;
+    }
+
+    .text-content span#typed {
+      font-weight: bold;
+      font-size: 2rem;
+      border-right: 2px solid #00ff00;
+      padding-right: 5px;
+      animation: blink 1s infinite;
+    }
+
+    .photo-container {
+      flex: 1 1 250px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-width: 250px;
+    }
+
+    .photo-container img {
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      border: 4px solid #00ff00;
+      box-shadow: 0 0 20px #00ff00;
+      object-fit: cover;
+    }
+
+    @keyframes blink {
+      0%, 100% { border-color: transparent; }
+      50% { border-color: #00ff00; }
+    }
+
+    .typing-text {
+      font-size: 2rem;
+      font-weight: bold;
+      color: white;
+      display: inline-block;
+    }
+
+    .round-cursor {
+      display: inline-block;
+      width: 25px;
+      height: 25px;
+      background-color: #00ff00;
+      border-radius: 50%;
+      margin-left: 8px;
+      animation: blink 1s step-start infinite;
+      vertical-align: middle;
+    }
+
+    /* Skills Section */
+    .skills-section {
+      background: #1e1e2f;
+      padding: 60px 20px;
+      color: white;
+      text-align: center;
+    }
+
+    .skills-section h2 {
+      margin-bottom: 40px;
+      font-size: 2.5rem;
+    }
+
+    .skills-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .skill-box {
+      background: linear-gradient(135deg, #4b6cb7, #182848);
+      border-radius: 10px;
+      width: 200px;
+      height: 200px;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+      opacity: 0;
+      transform: translateX(0);
+      transition: all 0.6s ease;
+      cursor: pointer;
+      box-sizing: border-box;
+    }
+
+    .skill-box.left {
+      transform: translateX(-100px);
+    }
+
+    .skill-box.right {
+      transform: translateX(100px);
+    }
+
+    .skill-box.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .skill-box:hover {
+      transform: scale(1.05);
+      background: linear-gradient(135deg, #ff6a00, #ee0979);
+    }
+
+    .skill-icon {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 15px;
+      object-fit: contain;
+    }
+
+    .bar {
+      background-color: #333;
+      width: 100%;
+      height: 10px;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    .fill {
+      height: 100%;
+      background: linear-gradient(90deg, #00c6ff, #0072ff);
+      width: 0;
+      transition: width 1s ease;
+    }
+
+    .percent-label {
+      margin-top: 8px;
+      font-size: 14px;
+      color: #ccc;
+    }
+
+    .skill-name {
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    /* Projects Section */
+    .projects {
+      padding: 60px 20px;
+      background: #fff;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      box-sizing: border-box;
+      max-width: 1200px;
+      margin: 0 auto 60px;
+    }
+
+    .projects-title {
+      width: 100%;
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    .project-card {
+      width: 300px;
+      background: #fafafa;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+      cursor: default;
+      user-select: none;
+      font-size: 1.1rem;
+      overflow: hidden;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .project-card a {
+      color: inherit;
+      text-decoration: none;
+      display: block;
+      height: 100%;
+    }
+
+    .project-image {
+      height: 180px;
+      overflow: hidden;
+    }
+
+    .project-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .project-card:hover .project-image img {
+      transform: scale(1.1);
+    }
+
+    .project-info {
+      padding: 20px;
+    }
+
+    .project-title {
+      font-weight: bold;
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+
+    /* Footer */
+    .footer {
+      background: #121212;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .footer .icons a {
+      margin: 0 10px;
+      color: white;
+      font-size: 1.5rem;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer .icons a:hover {
+      color: #00ff00;
+    }
+
+    /* Floating WhatsApp */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #25d366;
+      color: white;
+      border-radius: 50%;
+      padding: 15px;
+      font-size: 24px;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      transition: background-color 0.3s;
+    }
+
+    .whatsapp-float:hover {
+      background-color: #20b858;
+    }
+
+    /* Responsive Styling */
+
+    @media (max-width: 900px) {
+      .hero-content {
+        flex-direction: column;
+        gap: 30px;
+      }
+
+      .text-content h1 {
+        font-size: 2.2rem;
+        text-align: center;
+      }
+
+      .text-content span#typed {
+        font-size: 1.5rem;
+      }
+
+      .typing-text {
+        font-size: 1.7rem;
+      }
+
+      .photo-container img {
+        width: 200px;
+        height: 200px;
+      }
+
+      .skills-container {
+        gap: 15px;
+      }
+
+      .skill-box {
+        width: 45vw;
+        max-width: 250px;
+        height: 180px;
+        font-size: 16px;
+      }
+
+      .skill-icon {
+        width: 50px;
+        height: 50px;
+      }
+
+      .projects {
+        padding: 40px 15px;
+      }
+
+      .project-card {
+        width: 80vw;
+        max-width: 320px;
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .text-content h1 {
+        font-size: 1.8rem;
+      }
+
+      .text-content span#typed {
+        font-size: 1.3rem;
+      }
+
+      .typing-text {
+        font-size: 1.4rem;
+      }
+
+      .photo-container img {
+        width: 150px;
+        height: 150px;
+      }
+
+      .skill-box {
+        width: 90vw;
+        height: 160px;
+        font-size: 14px;
+      }
+
+      .skills-section h2 {
+        font-size: 2rem;
+      }
+
+      .project-card {
+        width: 90vw;
+        font-size: 0.95rem;
+      }
+      
+      .project-image {
+        height: 150px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Hero Section -->
+<div class="hero">
+  <div class="hero-content">
+    <div class="text-content">
+      <h1 class="typing-text">
+        I'm <span id="typed-text"></span><span class="round-cursor"></span>
+      </h1>
+      <h1>Hello, I'm <span id="typed"></span></h1>
+    </div>
+    <div class="photo-container">
+      <img src="g.jpg" alt="My Photo" />
+    </div>
+  </div>
+</div>
+
+<!-- Skills Section -->
+<section class="skills-section">
+  <h2>My Skills</h2>
+  <div class="skills-container">
+    <div class="skill-box left" data-fill="90%">
+      <img src="https://cdn-icons-png.flaticon.com/512/732/732212.png" alt="HTML" class="skill-icon">
+      <div class="skill-name">HTML</div>
+      <div class="bar"><div class="fill"></div></div>
+      <div class="percent-label">90%</div>
+    </div>
+    <div class="skill-box left" data-fill="85%">
+      <img src="https://cdn-icons-png.flaticon.com/512/732/732190.png" alt="CSS" class="skill-icon">
+      <div class="skill-name">CSS</div>
+      <div class="bar"><div class="fill"></div></div>
+      <div class="percent-label">85%</div>
+    </div>
+    <div class="skill-box right" data-fill="80%">
+      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968292.png" alt="JavaScript" class="skill-icon">
+      <div class="skill-name">JavaScript</div>
+      <div class="bar"><div class="fill"></div></div>
+      <div class="percent-label">80%</div>
+    </div>
+    <div class="skill-box right" data-fill="95%">
+      <img src="https://cdn-icons-png.flaticon.com/512/6134/6134346.png" alt="ChatGPT" class="skill-icon">
+      <div class="skill-name">ChatGPT</div>
+      <div class="bar"><div class="fill"></div></div>
+      <div class="percent-label">95%</div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS Section -->
+<section class="skills-section">
+  <h2>My TOOLS</h2>
+  <div class="skills-container">
+    <div class="skill-box left" data-fill="90%">
+      <img src="https://cdn-icons-png.flaticon.com/512/906/906324.png" alt="VS Code" class="skill-icon">
+      <div class="skill-name">VS CODE</div>
+      <div class="bar"><div class="fill"></div></div>
+      <div class="percent-label">90%</div>
+    </div>
+    <div class="skill-box left" data-fill="85%">
+      <img src="https://cdn-icons-png.flaticon.com/512/6134/6134346.png" alt="ChatGPT" class="skill-icon">
+      <div class="skill-name">CHATGPT</div>
+      <div class="bar"><div class="fill"></div></div>
+      <div class="percent-label">85%</div>
+    </div>
+    <div class="skill-box right" data-fill="80%">
+      <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub" class="skill-icon">
+      <div class="skill-name">GitHub</div>
+      <div class="bar"><div class="fill"></div></div>
+      <div class="percent-label">80%</div>
+    </div>
+    <div class="skill-box right" data-fill="95%">
+      <img src="https://cdn-icons-png.flaticon.com/512/6134/6134346.png" alt="DeepSeek" class="skill-icon">
+      <div class="skill-name">DEEPSEAK</div>
+      <div class="bar"><div class="fill"></div></div>
+      <div class="percent-label">95%</div>
+    </div>
+  </div>
+</section>
+
+<!-- Projects Section -->
+<section class="projects">
+  <h2 class="projects-title">PROJECTS</h2>
+  <div class="project-card">
+    <a href="file:///C:/Users/VAGP/Documents/intern/task5/index.html">
+      <div class="project-image">
+        <img src="https://images.unsplash.com/photo-1580193769210-b8d1c049a7d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Weather Detection">
+      </div>
+      <div class="project-info">
+        <div class="project-title">WEATHER DETECTION Website</div>
+      </div>
+    </a>
+  </div>
+  <div class="project-card">
+    <a href="file:///C:/Users/VAGP/Documents/intern/task3/index.html">
+      <div class="project-image">
+        <img src="https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Tic Tac Toe">
+      </div>
+      <div class="project-info">
+        <div class="project-title">TIC TAC TOE App</div>
+      </div>
+    </a>
+  </div>
+  <div class="project-card">
+    <a href="file:///C:/Users/VAGP/Documents/intern/task2/index.html">
+      <div class="project-image">
+        <img src="https://images.unsplash.com/photo-1512314889357-e157c22f938d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Stopwatch">
+      </div>
+      <div class="project-info">
+        <div class="project-title">STOP WATCH</div>
+      </div>
+    </a>
+  </div>
+  <div class="project-card">
+    <a href="file:///C:/Users/VAGP/Documents/git.html">
+      <div class="project-image">
+        <img src="https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="E-commerce">
+      </div>
+      <div class="project-info">
+        <div class="project-title">E-commerce Store</div>
+      </div>
+    </a>
+  </div>
+  <div class="project-card">
+    <a href="file:///C:/Users/VAGP/Documents/aib.html">
+      <div class="project-image">
+        <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="AI Chatbot">
+      </div>
+      <div class="project-info">
+        <div class="project-title">AI Chatbot</div>
+      </div>
+    </a>
+  </div>
+  <div class="project-card">
+    <a href="#">
+      <div class="project-image">
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Graphic Design">
+      </div>
+      <div class="project-info">
+        <div class="project-title">Graphic Showcase</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="icons">
+    <a href="https://instagram.com" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+    <a href="https://wa.me/918838043994" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://facebook.com" target="_blank" rel="noopener"><i class="fab fa-facebook"></i></a>
+    <a href="mailto:your@email.com"><i class="fas fa-envelope"></i></a>
+  </div>
+  <p>&copy;Dhanush</p>
+  <p>mail;dhanushsurya206@gmail.com</p>
+  <p>
+    contact;8838043994
+  </p>
+</footer>
+
+<!-- Floating WhatsApp -->
+<a href="https://wa.me/918838043994" class="whatsapp-float" target="_blank" rel="noopener">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- Typed.js -->
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+<script>
+  var typed = new Typed('#typed', {
+    strings: ["Dhanush", "Front-end Developer", "AI user", "Freelancer",],
+    typeSpeed: 50,
+    backSpeed: 25,
+    loop: true
+  });
+
+  // Manual typed effect
+  const textArray = ["I have deep knowlwdge about using Artifical intilignce like CHATGPT,DEEPSEAK,PERPLEXITY OTHERS...."];
+  const typedText = document.getElementById("typed-text");
+  let textIndex = 0;
+  let charIndex = 0;
+
+  function type() {
+    if (charIndex < textArray[textIndex].length) {
+      typedText.textContent += textArray[textIndex].charAt(charIndex);
+      charIndex++;
+      setTimeout(type, 100);
+    } else {
+      setTimeout(erase, 1500);
+    }
+  }
+
+  function erase() {
+    if (charIndex > 0) {
+      typedText.textContent = textArray[textIndex].substring(0, charIndex - 1);
+      charIndex--;
+      setTimeout(erase, 50);
+    } else {
+      textIndex = (textIndex + 1) % textArray.length;
+      setTimeout(type, 500);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(type, 1000);
+
+    // Animate skills bars
+    const boxes = document.querySelectorAll('.skill-box');
+    boxes.forEach((box, index) => {
+      setTimeout(() => {
+        box.classList.add('visible');
+        const fill = box.querySelector('.fill');
+        const percent = box.getAttribute('data-fill');
+        fill.style.width = percent;
+      }, index * 300);
+    });
+  });
+</script>
+
+</body>
+</html>
